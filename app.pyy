@@ -1,5 +1,5 @@
 # =======================================================
-# FILE: app.py - ỨNG DỤNG ĐÃ ĐƯỢC VÁ LỖI THEO ĐỀ XUẤT SAMM
+# FILE: app.pyy - ỨNG DỤNG ĐÃ ĐƯỢC VÁ LỖI THEO ĐỀ XUẤT SAMM
 # =======================================================
 import os
 import sys
