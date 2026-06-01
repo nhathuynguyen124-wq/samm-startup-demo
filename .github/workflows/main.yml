@@ -1,0 +1,24 @@
+name: DevSecOps Pipeline (Cấu hình nâng cấp SAMM)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  security_scans:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout mã nguồn
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
+
+    # Cấu hình công cụ TruffleHog để quét lộ mật khẩu nhạy cảm
+    - name: Quét lộ thông tin nhạy cảm (TruffleHog)
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
