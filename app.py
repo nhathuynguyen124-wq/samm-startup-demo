@@ -1,24 +1,24 @@
-# =================================================================
-# FILE: app.py - ỨNG DỤNG CORE WEB SERVICE CỦA STARTUP
-# =================================================================
+# =======================================================
+# FILE: app.py - ỨNG DỤNG ĐÃ ĐƯỢC VÁ LỖI THEO ĐỀ XUẤT SAMM
+# =======================================================
 import os
 import sys
 
-# CẤU HÌNH KẾT NỐI HỆ THỐNG (HIỆN TRẠNG MỨC ĐỘ 0)
-DATABASE_HOST = "192.168.1.250"
-DATABASE_USER = "sa_admin"
-
-# LỖI BẢO MẬT CHÍ MẠNG: Lập trình viên hardcode mật khẩu Master của DB vào mã nguồn công khai
-DATABASE_PASSWORD = "super_secret_password_123" 
+# GIẢI PHÁP AN TOÀN: Lấy thông tin từ biến môi trường (Environment Variables)
+# Không còn hardcode mật khẩu trực tiếp trong code nữa!
+DATABASE_HOST = os.environ.get("DB_HOST", "192.168.1.250")
+DATABASE_USER = os.environ.get("DB_USER", "sa_admin")
+DATABASE_PASSWORD = os.environ.get("DB_PASSWORD") # Mật khẩu thật được giấu ở ngoài
 
 def connect_to_database():
     print(f"[*] Đang khởi tạo kết nối đến Cơ sở dữ liệu tại {DATABASE_HOST}...")
-    # Giả lập logic kết nối sử dụng tài khoản và mật khẩu trên
-    if DATABASE_USER == "sa_admin" and DATABASE_PASSWORD == "super_secret_password_123":
-        print("[+] KẾT NỐI THÀNH CÔNG! Hệ thống đã sẵn sàng phục vụ khách hàng.")
+    
+    # Kiểm tra xem hệ thống đã cấu hình biến môi trường an toàn chưa
+    if DATABASE_PASSWORD:
+        print("[+] KẾT NỐI THÀNH CÔNG! Hệ thống bảo mật đạt chuẩn SAMM Cấp độ 2.")
         return True
     else:
-        print("[-] KẾT NỐI THẤT BẠI: Sai thông tin xác thực.")
+        print("[-] CẢNH BÁO: Không tìm thấy biến cấu hình mật khẩu an toàn!")
         return False
 
 if __name__ == "__main__":
